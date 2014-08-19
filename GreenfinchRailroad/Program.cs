@@ -6,6 +6,15 @@ using System.Diagnostics;
 
 namespace GreenfinchRailroad
 {
+    public struct City
+    {
+        public char name;
+        public City(char c)
+        {
+            name = c;
+        }
+    }
+  
     class Program
     {
         static bool isDebug = true;
@@ -26,6 +35,9 @@ namespace GreenfinchRailroad
         }
         static void DoTests(Graph graph)
         {
+            print("---------------------------------");
+            print("Questions 1-5");
+            print("---------------------------------");
             List<char[]> testRoutes=new List<char[]>();
             char[] route1 = { 'A', 'B', 'C' };
             char[] route2 = { 'A', 'D' };
@@ -47,17 +59,30 @@ namespace GreenfinchRailroad
             Debug.Assert(distance4 == 22, "Answer is incorrect");
             int distance5 = graph.FindRouteDistance(testRoutes[4]);
             Debug.Assert(distance5 == 0, "Answer is incorrect");
+
+            print("---------------------------------");
+            print("Questions 6-7");
+            print("---------------------------------");
+            int count1 = graph.GetRoutesWithMaxStops('C', 'C', 3).Count;
+            print("Routes from C-C with less than 3 stops = " + count1);
+            Debug.Assert(count1 == 2, "Answer is incorrect");
+            int count2 = graph.GetRoutesWithExactNumberOfStops('A', 'C', 4).Count;
+            Debug.Assert(count2 == 3, "Answer is incorrect");
+            print("Routes from A-C with exactly 4 stops = " + count2);
+            print("---------------------------------");
+            print("Questions 8-9");
+            print("---------------------------------");
+            int distance6 = graph.GetShortestRouteBetween('A', 'C').GetDistance();
+            Debug.Assert(distance6 == 9, "Answer is incorrect");
+
+            int distance7 = graph.GetShortestRouteBetween('B', 'B').GetDistance();
+            Debug.Assert(distance7 == 9, "Answer is incorrect");
+            print("---------------------------------");
+            print("Questions 10");
+            print("---------------------------------");
+            int count3 = graph.GetRoutesWithDistanceLowerThan('C', 'C',30).Count;
+            Debug.Assert(count3 == 7, "Answer is incorrect");
+
         }
     }
-
-    struct City
-    {
-        public char name;
-        public City(char c)
-        {
-            name = c;
-        }
-    }
-
-  
 }
