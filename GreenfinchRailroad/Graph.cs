@@ -65,5 +65,29 @@ namespace GreenfinchRailroad
         {
             routes[city1, city2] = distance;
         }
+        public int GetRoute(int city1, int city2)
+        {
+            return routes[city1, city2];
+        }
+        public int FindRouteDistance(char[] routeCities){
+            int totalDistance = 0;
+            int i = 0;
+            do
+            {
+                int currentCity = FindCity(routeCities[i]);
+                i++;
+                int connectingCity = FindCity(routeCities[i]);
+                int distance = GetRoute(currentCity, connectingCity);
+                if (distance != 0) totalDistance += distance;
+                else
+                {
+                    totalDistance = 0;
+                    break;
+                }
+            } while (i < routeCities.Count()-1);
+            if (totalDistance > 0) Program.print("Total distance of route " + new string(routeCities) + " = " + totalDistance);
+            else Program.print("NO SUCH ROUTE between " + new string(routeCities));
+            return totalDistance;
+        }
     }
 }
